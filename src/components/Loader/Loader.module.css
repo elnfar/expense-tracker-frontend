@@ -1,0 +1,415 @@
+/* Loader Component Styles */
+
+/* Base loader container */
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 60px;
+}
+
+.loader--centered {
+  margin: 0 auto;
+}
+
+.loader--overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgb(255, 255, 255, 0.8);
+  backdrop-filter: blur(2px);
+  z-index: 9999;
+  min-height: 100vh;
+}
+
+/* Spinner container */
+.spinner {
+  position: relative;
+  display: inline-block;
+}
+
+.spinnerInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Spinner dots */
+.spinnerDot {
+  position: absolute;
+  border-radius: 50%;
+  background-color: currentcolor;
+  animation: spinner-fade 1.2s linear infinite;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+  animation-iteration-count: infinite;
+}
+
+/* Size variants for spinner */
+.spinner--small {
+  width: 20px;
+  height: 20px;
+}
+
+.spinner--small .spinnerDot {
+  width: 3px;
+  height: 3px;
+}
+
+.spinner--medium {
+  width: 32px;
+  height: 32px;
+}
+
+.spinner--medium .spinnerDot {
+  width: 4px;
+  height: 4px;
+}
+
+.spinner--large {
+  width: 48px;
+  height: 48px;
+}
+
+.spinner--large .spinnerDot {
+  width: 6px;
+  height: 6px;
+}
+
+.spinner--xlarge {
+  width: 64px;
+  height: 64px;
+}
+
+.spinner--xlarge .spinnerDot {
+  width: 8px;
+  height: 8px;
+}
+
+/* Animation speed variants */
+.loader--slow .spinnerDot {
+  animation-duration: 2s;
+}
+
+.loader--normal .spinnerDot {
+  animation-duration: 1.2s;
+}
+
+.loader--fast .spinnerDot {
+  animation-duration: 0.8s;
+}
+
+/* Dot positioning for circular spinner - Small */
+.spinner--small .spinnerDot:nth-child(1) {
+  top: 0;
+  left: 8.5px;
+  animation-delay: 0s;
+}
+
+.spinner--small .spinnerDot:nth-child(2) {
+  top: 2.5px;
+  left: 14.5px;
+  animation-delay: -0.15s;
+}
+
+.spinner--small .spinnerDot:nth-child(3) {
+  top: 8.5px;
+  left: 17px;
+  animation-delay: -0.3s;
+}
+
+.spinner--small .spinnerDot:nth-child(4) {
+  top: 14.5px;
+  left: 14.5px;
+  animation-delay: -0.45s;
+}
+
+.spinner--small .spinnerDot:nth-child(5) {
+  top: 17px;
+  left: 8.5px;
+  animation-delay: -0.6s;
+}
+
+.spinner--small .spinnerDot:nth-child(6) {
+  top: 14.5px;
+  left: 2.5px;
+  animation-delay: -0.75s;
+}
+
+.spinner--small .spinnerDot:nth-child(7) {
+  top: 8.5px;
+  left: 0;
+  animation-delay: -0.9s;
+}
+
+.spinner--small .spinnerDot:nth-child(8) {
+  top: 2.5px;
+  left: 2.5px;
+  animation-delay: -1.05s;
+}
+
+/* Dot positioning for circular spinner - Medium */
+.spinner--medium .spinnerDot:nth-child(1) {
+  top: 0;
+  left: 14px;
+  animation-delay: 0s;
+}
+
+.spinner--medium .spinnerDot:nth-child(2) {
+  top: 4px;
+  left: 24px;
+  animation-delay: -0.15s;
+}
+
+.spinner--medium .spinnerDot:nth-child(3) {
+  top: 14px;
+  left: 28px;
+  animation-delay: -0.3s;
+}
+
+.spinner--medium .spinnerDot:nth-child(4) {
+  top: 24px;
+  left: 24px;
+  animation-delay: -0.45s;
+}
+
+.spinner--medium .spinnerDot:nth-child(5) {
+  top: 28px;
+  left: 14px;
+  animation-delay: -0.6s;
+}
+
+.spinner--medium .spinnerDot:nth-child(6) {
+  top: 24px;
+  left: 4px;
+  animation-delay: -0.75s;
+}
+
+.spinner--medium .spinnerDot:nth-child(7) {
+  top: 14px;
+  left: 0;
+  animation-delay: -0.9s;
+}
+
+.spinner--medium .spinnerDot:nth-child(8) {
+  top: 4px;
+  left: 4px;
+  animation-delay: -1.05s;
+}
+
+/* Dot positioning for circular spinner - Large */
+.spinner--large .spinnerDot:nth-child(1) {
+  top: 0;
+  left: 21px;
+  animation-delay: 0s;
+}
+
+.spinner--large .spinnerDot:nth-child(2) {
+  top: 6px;
+  left: 36px;
+  animation-delay: -0.15s;
+}
+
+.spinner--large .spinnerDot:nth-child(3) {
+  top: 21px;
+  left: 42px;
+  animation-delay: -0.3s;
+}
+
+.spinner--large .spinnerDot:nth-child(4) {
+  top: 36px;
+  left: 36px;
+  animation-delay: -0.45s;
+}
+
+.spinner--large .spinnerDot:nth-child(5) {
+  top: 42px;
+  left: 21px;
+  animation-delay: -0.6s;
+}
+
+.spinner--large .spinnerDot:nth-child(6) {
+  top: 36px;
+  left: 6px;
+  animation-delay: -0.75s;
+}
+
+.spinner--large .spinnerDot:nth-child(7) {
+  top: 21px;
+  left: 0;
+  animation-delay: -0.9s;
+}
+
+.spinner--large .spinnerDot:nth-child(8) {
+  top: 6px;
+  left: 6px;
+  animation-delay: -1.05s;
+}
+
+/* Dot positioning for circular spinner - XLarge */
+.spinner--xlarge .spinnerDot:nth-child(1) {
+  top: 0;
+  left: 28px;
+  animation-delay: 0s;
+}
+
+.spinner--xlarge .spinnerDot:nth-child(2) {
+  top: 8px;
+  left: 48px;
+  animation-delay: -0.15s;
+}
+
+.spinner--xlarge .spinnerDot:nth-child(3) {
+  top: 28px;
+  left: 56px;
+  animation-delay: -0.3s;
+}
+
+.spinner--xlarge .spinnerDot:nth-child(4) {
+  top: 48px;
+  left: 48px;
+  animation-delay: -0.45s;
+}
+
+.spinner--xlarge .spinnerDot:nth-child(5) {
+  top: 56px;
+  left: 28px;
+  animation-delay: -0.6s;
+}
+
+.spinner--xlarge .spinnerDot:nth-child(6) {
+  top: 48px;
+  left: 8px;
+  animation-delay: -0.75s;
+}
+
+.spinner--xlarge .spinnerDot:nth-child(7) {
+  top: 28px;
+  left: 0;
+  animation-delay: -0.9s;
+}
+
+.spinner--xlarge .spinnerDot:nth-child(8) {
+  top: 8px;
+  left: 8px;
+  animation-delay: -1.05s;
+}
+
+/* Color variants */
+.spinner--primary {
+  color: #007acc;
+}
+
+.spinner--secondary {
+  color: #6c757d;
+}
+
+.spinner--success {
+  color: #28a745;
+}
+
+.spinner--warning {
+  color: #ffc107;
+}
+
+.spinner--danger {
+  color: #dc3545;
+}
+
+/* Loading text */
+.loaderText {
+  font-size: 0.875rem;
+  color: #666;
+  text-align: center;
+  line-height: 1.4;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* Animations */
+@keyframes spinner-fade {
+  0%,
+  39%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .loader--overlay {
+    background-color: rgb(0, 0, 0, 0.8);
+  }
+
+  .loaderText {
+    color: #e0e0e0;
+  }
+
+  .spinner--primary {
+    color: #4da6ff;
+  }
+
+  .spinner--secondary {
+    color: #adb5bd;
+  }
+
+  .spinner--success {
+    color: #40d965;
+  }
+
+  .spinner--warning {
+    color: #ffda6a;
+  }
+
+  .spinner--danger {
+    color: #f56565;
+  }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .spinner {
+    color: ButtonText;
+  }
+
+  .loaderText {
+    color: ButtonText;
+  }
+
+  .loader--overlay {
+    background-color: Canvas;
+    border: 1px solid ButtonText;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .spinnerDot {
+    animation: spinner-fade-simple 2s linear infinite;
+  }
+}
+
+@keyframes spinner-fade-simple {
+  0%,
+  50%,
+  100% {
+    opacity: 0.3;
+  }
+
+  25% {
+    opacity: 1;
+  }
+}
+
+/* Print styles */
+@media print {
+  .loader {
+    display: none;
+  }
+}
