@@ -30,6 +30,21 @@ import {
   StarIcon,
   MenuIcon,
   MoreIcon,
+  GroceriesIcon,
+  RestaurantIcon,
+  TransportIcon,
+  EntertainmentIcon,
+  HealthIcon,
+  ShoppingIcon,
+  UtilityIcon,
+  TravelIcon,
+  BuildingIcon,
+  CameraIcon,
+  MoneyIcon,
+  WaterDropIcon,
+  DocumentIcon,
+  PaymentIcon,
+  RefreshIcon,
 } from './index'
 
 // Icon registry - maps icon names to components
@@ -58,6 +73,21 @@ export const iconRegistry = {
   star: StarIcon,
   menu: MenuIcon,
   more: MoreIcon,
+  groceries: GroceriesIcon,
+  restaurant: RestaurantIcon,
+  transport: TransportIcon,
+  entertainment: EntertainmentIcon,
+  health: HealthIcon,
+  shopping: ShoppingIcon,
+  utility: UtilityIcon,
+  travel: TravelIcon,
+  building: BuildingIcon,
+  camera: CameraIcon,
+  money: MoneyIcon,
+  'water-drop': WaterDropIcon,
+  document: DocumentIcon,
+  payment: PaymentIcon,
+  refresh: RefreshIcon,
 } as const
 
 // Type for available icon names
