@@ -1,0 +1,153 @@
+/* Logo Component Styles */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: inherit;
+  text-decoration: none;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: default;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Interactive states */
+.logo:is(button, a, [role='button']) {
+  cursor: pointer;
+}
+
+.logo:is(button, a, [role='button']):hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.logo:is(button, a, [role='button']):active {
+  transform: translateY(0);
+}
+
+.logo:is(button, a, [role='button']):focus-visible {
+  outline: 2px solid #007acc;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Logo image */
+.logoImage {
+  display: block;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Logo text */
+.logoText {
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  color: #1a1a1a;
+  white-space: nowrap;
+}
+
+/* Size variants */
+.logo--small .logoImage {
+  width: 24px;
+  height: 24px;
+}
+
+.logo--small .logoText {
+  font-size: 0.875rem;
+}
+
+.logo--small {
+  gap: 0.5rem;
+}
+
+.logo--medium .logoImage {
+  width: 32px;
+  height: 32px;
+}
+
+.logo--medium .logoText {
+  font-size: 1.125rem;
+}
+
+.logo--large .logoImage {
+  width: 48px;
+  height: 48px;
+}
+
+.logo--large .logoText {
+  font-size: 1.5rem;
+}
+
+.logo--large {
+  gap: 1rem;
+}
+
+.logo--xlarge .logoImage {
+  width: 64px;
+  height: 64px;
+}
+
+.logo--xlarge .logoText {
+  font-size: 2rem;
+}
+
+.logo--xlarge {
+  gap: 1.25rem;
+}
+
+/* Layout variants */
+.logo--inline {
+  display: inline-flex;
+}
+
+.logo--icon-only .logoText {
+  display: none;
+}
+
+.logo--icon-only {
+  gap: 0;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .logoText {
+    color: #fff;
+  }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .logo:is(button, a, [role='button']):focus-visible {
+    outline: 3px solid;
+    outline-color: Highlight;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .logo {
+    transition: none;
+  }
+
+  .logo:is(button, a, [role='button']):hover {
+    transform: none;
+  }
+
+  .logo:is(button, a, [role='button']):active {
+    transform: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .logo {
+    color: black !important;
+  }
+
+  .logoText {
+    color: black !important;
+  }
+}

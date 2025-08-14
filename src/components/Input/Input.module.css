@@ -1,0 +1,288 @@
+/* Input wrapper */
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Input container */
+.inputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid #9ca3af;
+  border-radius: 8px;
+  background-color: transparent;
+  transition:
+    border-color 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+}
+
+.inputContainer:hover:not(.inputContainer--disabled) {
+  border-color: #d1d5db;
+}
+
+/* Input element */
+.input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #000 !important;
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  padding: 0.75rem 1rem;
+  width: 100%;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.input:disabled {
+  cursor: not-allowed;
+  color: #9ca3af;
+}
+
+.input:disabled::placeholder {
+  color: #d1d5db;
+}
+
+/* Size variants */
+.inputContainer--small {
+  min-height: 2rem;
+}
+
+.input--small {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+.inputContainer--medium {
+  min-height: 2.5rem;
+}
+
+.input--medium {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+}
+
+.inputContainer--large {
+  min-height: 3rem;
+}
+
+.input--large {
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+}
+
+/* Full width */
+.inputContainer--full-width {
+  width: 100%;
+}
+
+/* Error state */
+.inputContainer--error {
+  border-color: #ef4444;
+}
+
+.inputContainer--error:hover:not(.inputContainer--disabled) {
+  border-color: #dc2626;
+}
+
+.input--error {
+  color: #000 !important;
+}
+
+/* Disabled state */
+.inputContainer--disabled {
+  background-color: transparent;
+  border-color: #e5e7eb;
+  cursor: not-allowed;
+}
+
+.inputContainer--disabled:hover {
+  border-color: #e5e7eb;
+}
+
+/* Icons */
+.startIcon,
+.endIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.startIcon {
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+}
+
+.endIcon {
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+}
+
+.startIcon svg,
+.endIcon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Input with icons */
+.input--with-start-icon {
+  padding-left: 0.5rem;
+}
+
+.input--with-end-icon {
+  padding-right: 0.5rem;
+}
+
+/* Small size icons */
+.inputContainer--small .startIcon {
+  padding-left: 0.75rem;
+  padding-right: 0.375rem;
+}
+
+.inputContainer--small .endIcon {
+  padding-left: 0.375rem;
+  padding-right: 0.75rem;
+}
+
+.inputContainer--small .startIcon svg,
+.inputContainer--small .endIcon svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+/* Large size icons */
+.inputContainer--large .startIcon {
+  padding-left: 1.25rem;
+  padding-right: 0.625rem;
+}
+
+.inputContainer--large .endIcon {
+  padding-left: 0.625rem;
+  padding-right: 1.25rem;
+}
+
+.inputContainer--large .startIcon svg,
+.inputContainer--large .endIcon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* Helper text */
+.helperText {
+  margin-top: 0.375rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+.helperText--error {
+  color: #ef4444;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .inputContainer {
+    background-color: transparent;
+    border-color: #374151;
+  }
+
+  .inputContainer:hover:not(.inputContainer--disabled) {
+    border-color: #4b5563;
+  }
+
+  .input {
+    color: #000 !important;
+  }
+
+  .input::placeholder {
+    color: #6b7280;
+  }
+
+  .input:disabled {
+    color: #6b7280;
+  }
+
+  .input:disabled::placeholder {
+    color: #4b5563;
+  }
+
+  .inputContainer--disabled {
+    background-color: transparent;
+    border-color: #374151;
+  }
+
+  .startIcon,
+  .endIcon {
+    color: #9ca3af;
+  }
+
+  .helperText {
+    color: #9ca3af;
+  }
+
+  .helperText--error {
+    color: #f87171;
+  }
+
+  .inputContainer--error {
+    border-color: #f87171;
+  }
+
+  .inputContainer--error:hover:not(.inputContainer--disabled) {
+    border-color: #ef4444;
+  }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .inputContainer {
+    border-color: ButtonBorder;
+    background-color: transparent;
+  }
+
+  .input {
+    color: FieldText;
+  }
+
+  .inputContainer--error {
+    border-color: ButtonBorder;
+  }
+
+  .inputContainer--disabled {
+    background-color: transparent;
+    border-color: GrayText;
+  }
+
+  .input:disabled {
+    color: GrayText;
+  }
+
+  .startIcon,
+  .endIcon {
+    color: ButtonText;
+  }
+
+  .helperText {
+    color: ButtonText;
+  }
+
+  .helperText--error {
+    color: ButtonText;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .inputContainer {
+    transition: none;
+  }
+}

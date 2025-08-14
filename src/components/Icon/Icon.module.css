@@ -1,0 +1,46 @@
+/* Base icon styles */
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  line-height: 1;
+  user-select: none;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Ensure SVG fills the container properly */
+.icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Interactive states */
+.icon:hover {
+  cursor: pointer;
+}
+
+/* Focus styles for accessibility when used as button */
+.icon:focus {
+  outline: 2px solid #3629b7;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .icon {
+    color: ButtonText;
+  }
+
+  .icon:focus {
+    outline-color: Highlight;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .icon {
+    transition: none;
+  }
+}
