@@ -1,190 +1,57 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Logo } from './components/Logo'
-import { Button } from './components/Button'
-import { Icon } from './components/Icon'
+import { ErrorBanner } from './components/ErrorBanner'
+import { DateRangeFilter } from './components/DateRangeFilter'
 import { ExpenseTable } from './components/ExpenseTable'
+import { FloatingActionButton } from './components/FloatingActionButton'
 import { AddExpenseModal } from './components/AddExpenseModal'
-import {
-  EXPENSE_CATEGORIES,
-  type Expense,
-  type ExpenseFormData,
-  type ExpenseListState,
-  findCategoryByName,
-  findCategoryById,
-} from './types/expense'
-import {
-  expenseApi,
-  convertBackendExpenseToFrontend,
-  convertFrontendFormToBackend,
-} from './services/api'
+import { useExpenses } from './hooks/useExpenses'
+import { useDateFilter } from './hooks/useDateFilter'
+import { useModal } from './hooks/useModal'
+import type { ExpenseFormData } from './types/expense'
 import './App.css'
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [editingExpense, setEditingExpense] = useState<Expense | null>(null)
-  const [expenseState, setExpenseState] = useState<ExpenseListState>({
-    expenses: [],
-    isLoading: false,
-    error: null,
-  })
+  const {
+    expenseState,
+    loadExpenses,
+    createExpense,
+    updateExpense,
+    deleteExpense,
+  } = useExpenses()
+  const { dateRange, setStartDate, setEndDate, getFilterForTable } =
+    useDateFilter(loadExpenses)
+  const {
+    isModalOpen,
+    editingExpense,
+    openModal,
+    openEditModal,
+    closeModal,
+    isEditing,
+  } = useModal()
 
-  // Load expenses from backend on component mount
+  // Load expenses on component mount
   useEffect(() => {
     loadExpenses()
-  }, [])
+  }, [loadExpenses])
 
-  const loadExpenses = async () => {
-    setExpenseState(prev => ({ ...prev, isLoading: true, error: null }))
-
+  // Event handlers
+  const handleExpenseSubmit = async (formData: ExpenseFormData) => {
     try {
-      const response = await expenseApi.getAllExpenses()
-
-      if (response.success && response.data) {
-        // Convert backend expenses to frontend format
-        const frontendExpenses: Expense[] = response.data.map(
-          backendExpense => {
-            const category =
-              findCategoryByName(backendExpense.category) ||
-              EXPENSE_CATEGORIES[0]
-            return {
-              ...convertBackendExpenseToFrontend(backendExpense),
-              category,
-            }
-          }
-        )
-
-        setExpenseState({
-          expenses: frontendExpenses,
-          isLoading: false,
-          error: null,
-        })
+      if (isEditing && editingExpense) {
+        await updateExpense(editingExpense.id, formData)
       } else {
-        throw new Error(response.error || 'Failed to load expenses')
+        await createExpense(formData)
       }
+      closeModal()
     } catch (error) {
-      console.error('Failed to load expenses:', error)
-      setExpenseState(prev => ({
-        ...prev,
-        isLoading: false,
-        error:
-          error instanceof Error ? error.message : 'Failed to load expenses',
-      }))
-    }
-  }
-
-  const handleAddExpense = async (formData: ExpenseFormData) => {
-    const category = findCategoryById(formData.category)
-    if (!category) return
-
-    setExpenseState(prev => ({ ...prev, isLoading: true, error: null }))
-
-    try {
-      // Convert form data to backend format
-      const backendExpenseData = convertFrontendFormToBackend({
-        ...formData,
-        category: category.name, // Backend expects category name, not ID
-      })
-
-      if (editingExpense) {
-        // Update existing expense
-        const response = await expenseApi.updateExpense(
-          parseInt(editingExpense.id),
-          backendExpenseData
-        )
-
-        if (response.success && response.data) {
-          // Convert backend response to frontend format
-          const updatedFrontendExpense: Expense = {
-            ...convertBackendExpenseToFrontend(response.data),
-            category,
-          }
-
-          setExpenseState(prev => ({
-            ...prev,
-            expenses: prev.expenses.map(expense =>
-              expense.id === editingExpense.id
-                ? updatedFrontendExpense
-                : expense
-            ),
-            isLoading: false,
-          }))
-
-          setIsModalOpen(false)
-          setEditingExpense(null)
-        } else {
-          throw new Error(response.error || 'Failed to update expense')
-        }
-      } else {
-        // Create new expense
-        const response = await expenseApi.createExpense(backendExpenseData)
-
-        if (response.success && response.data) {
-          // Convert backend response to frontend format
-          const newFrontendExpense: Expense = {
-            ...convertBackendExpenseToFrontend(response.data),
-            category,
-          }
-
-          setExpenseState(prev => ({
-            ...prev,
-            expenses: [newFrontendExpense, ...prev.expenses],
-            isLoading: false,
-          }))
-
-          setIsModalOpen(false)
-        } else {
-          throw new Error(response.error || 'Failed to create expense')
-        }
-      }
-    } catch (error) {
+      // Error handling is done in the hooks
       console.error('Failed to save expense:', error)
-      setExpenseState(prev => ({
-        ...prev,
-        isLoading: false,
-        error:
-          error instanceof Error ? error.message : 'Failed to save expense',
-      }))
     }
   }
 
-  const handleEditExpense = (expense: Expense) => {
-    setEditingExpense(expense)
-    setIsModalOpen(true)
-  }
-
-  const handleDeleteExpense = async (expenseId: string) => {
-    if (!confirm('Are you sure you want to delete this expense?')) {
-      return
-    }
-
-    setExpenseState(prev => ({ ...prev, isLoading: true, error: null }))
-
-    try {
-      const response = await expenseApi.deleteExpense(parseInt(expenseId))
-
-      if (response.success) {
-        setExpenseState(prev => ({
-          ...prev,
-          expenses: prev.expenses.filter(expense => expense.id !== expenseId),
-          isLoading: false,
-        }))
-      } else {
-        throw new Error(response.error || 'Failed to delete expense')
-      }
-    } catch (error) {
-      console.error('Failed to delete expense:', error)
-      setExpenseState(prev => ({
-        ...prev,
-        isLoading: false,
-        error:
-          error instanceof Error ? error.message : 'Failed to delete expense',
-      }))
-    }
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
-    setEditingExpense(null)
+  const handleRetry = () => {
+    loadExpenses()
   }
 
   return (
@@ -196,47 +63,34 @@ function App() {
       <main className="app-main">
         <div className="main-content">
           {expenseState.error && (
-            <div className="error-banner">
-              <Icon iconName="warning" size={20} color="#ef4444" />
-              <span>{expenseState.error}</span>
-              <Button
-                variant="ghost"
-                size="small"
-                onClick={loadExpenses}
-                startIcon={<Icon iconName="refresh" size={16} />}
-              >
-                Retry
-              </Button>
-            </div>
+            <ErrorBanner error={expenseState.error} onRetry={handleRetry} />
           )}
+
+          <DateRangeFilter
+            startDate={dateRange.startDate}
+            endDate={dateRange.endDate}
+            onStartDateChange={setStartDate}
+            onEndDateChange={setEndDate}
+          />
 
           <ExpenseTable
             expenses={expenseState.expenses}
-            onEditExpense={handleEditExpense}
-            onDeleteExpense={handleDeleteExpense}
-            dateRange={{
-              startDate: '2024-01-01',
-              endDate: '2024-01-12',
-            }}
+            onEditExpense={openEditModal}
+            onDeleteExpense={deleteExpense}
+            dateRange={getFilterForTable()}
           />
         </div>
 
-        <Button
-          className="fab"
-          variant="primary"
-          size="large"
-          iconOnly
-          onClick={() => setIsModalOpen(true)}
-          aria-label="Add new expense"
+        <FloatingActionButton
+          onClick={openModal}
           disabled={expenseState.isLoading}
-          startIcon={<Icon iconName="plus" size={24} color="white" />}
         />
       </main>
 
       <AddExpenseModal
         isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onSubmit={handleAddExpense}
+        onClose={closeModal}
+        onSubmit={handleExpenseSubmit}
         isLoading={expenseState.isLoading}
         initialData={
           editingExpense

@@ -28,51 +28,11 @@
   max-width: 1200px;
 }
 
-/* Floating Action Button */
-.fab {
-  position: fixed !important;
-  bottom: 32px;
-  right: 32px;
-  width: 64px !important;
-  height: 64px !important;
-  border-radius: 50% !important;
-  box-shadow: 0 8px 25px rgb(99, 102, 241, 0.4) !important;
-  z-index: 100;
-  transition: all 0.3s ease !important;
-}
-
-.fab:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 12px 35px rgb(99, 102, 241, 0.5) !important;
-}
-
-.fab:active {
-  transform: translateY(0) !important;
-}
-
 /* Global Overrides for Purple Theme */
 :root {
   --primary-color: #6366f1;
   --primary-hover: #5856eb;
   --primary-light: rgb(99, 102, 241, 0.1);
-}
-
-/* Error Banner */
-.error-banner {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  margin-bottom: 24px;
-  background-color: #fef2f2;
-  border: 1px solid #fecaca;
-  border-radius: 8px;
-  color: #dc2626;
-  font-size: 14px;
-}
-
-.error-banner span {
-  flex: 1;
 }
 
 /* Responsive Design */
@@ -83,13 +43,6 @@
 
   .app-header {
     padding: 16px 20px;
-  }
-
-  .fab {
-    bottom: 24px !important;
-    right: 24px !important;
-    width: 56px !important;
-    height: 56px !important;
   }
 }
 
